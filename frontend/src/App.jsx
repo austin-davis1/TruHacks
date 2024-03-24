@@ -1,5 +1,6 @@
 import './App.css'
 import { useState, useEffect } from 'react'
+import { LoadingIcon } from './LoadingIcon';
 
 const countryCityData = {
   'India': ['Delhi', 'Mumbai', 'Bangalore', 'Kolkata', 'Chennai', 'Hyderabad', 'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow'],
@@ -17,6 +18,9 @@ const countryCityData = {
 function App() {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
+  const [selectionMode, setSelectionMode] = useState(true)
+  const [loadingMode, setLoadingMode] = useState(false)
+  const [graphMode, setGraphMode] = useState(false)
 
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);
@@ -27,11 +31,37 @@ function App() {
     setSelectedCity(event.target.value);
   };
 
-  const handleSubmit = () => {
-    //something
+  const handleSelectionSubmit = () => {
+    if (!selectedCountry || !selectedCity) {
+      alert("Must fill out all fields")
+      return
+    }
+    setSelectionMode(false)
+    setLoadingMode(true)
+    //some api call
+    setTimeout(() => {
+      setLoadingMode(false)
+      setGraphMode(true)
+    }, 3000)
   };
 
+  const handleGraphSubmit = () => {
+    if (!selectedCountry || !selectedCity) {
+      alert("Must fill out all fields")
+      return
+    }
+    setGraphMode(false)
+    setLoadingMode(true)
+    setTimeout(() => {
+      setLoadingMode(false)
+      setGraphMode(true)
+    }, 3000)
+    //some api call
+  }
+
   return (
+    <>
+    {selectionMode &&
     <div className="menu">
       <h1>Dengue Tracker</h1>
       <div>
@@ -57,8 +87,46 @@ function App() {
         </div>
       )}
       </div>
-      <button  className="submitButton" onClick={() => handleSubmit()}>Calculate Dengue Data</button>
+      <button  className="submitButton" onClick={() => handleSelectionSubmit()}>Calculate Dengue Data</button>
+    </div>}
+    <div>
+      {loadingMode && <LoadingIcon/>}
     </div>
+    <div>
+        {graphMode && 
+        <>
+        <div className="graphMenu">
+        <div>
+          <label htmlFor="country">Select a country:</label>
+          <select id="country" value={selectedCountry} onChange={handleCountryChange}>
+            <option value="">-- Select Country --</option>
+            {Object.keys(countryCityData).map((country) => (
+              <option key={country} value={country}>{country}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+        {selectedCountry && (
+        <div>
+          <label htmlFor="city">Select a city:</label>
+          <select id="city" value={selectedCity} onChange={handleCityChange}>
+            <option value="">-- Select City --</option>
+            {countryCityData[selectedCountry].map((city) => (
+              <option key={city} value={city}>{city}</option>
+            ))}
+          </select>
+        </div>
+      )}
+      </div>
+      <button className="submitButton" onClick={handleGraphSubmit}>Calculate</button>
+        </div>
+        <div className="graphSection">
+
+        </div>
+        
+        </>}
+    </div>
+    </>
   )
 }
 
