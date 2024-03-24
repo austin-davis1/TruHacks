@@ -36,19 +36,7 @@ def plot_hospital_capacity():
 
 def plot_current_risk(num_days = 30):
 
-<<<<<<< HEAD
-    current_risk = np.random.rand(num_days) * 0.5 + 0.3
-    fig = plt.figure()
-    obj = plt.plot(current_risk, marker='o', color='m')
-
-    plt.title('Current Risk')
-    plt.xlabel('Days')
-    plt.ylabel('Risk')
-
-    return mpld3.fig_to_dict(fig)
-=======
     return np.random.randint(1,4)
->>>>>>> 410d9fe188140dff0203d0e937a6520d02af600d
 
 def gen_table():
     d_table = {}
