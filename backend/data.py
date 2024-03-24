@@ -1,4 +1,5 @@
-import matplotlib.pyplot as plt, mpld3
+i
+port matplotlib.pyplot as plt, mpld3
 import numpy as np
 import pandas as pd
 import json
@@ -30,28 +31,12 @@ def plot_cases(num_days = 30):
 
     return mpld3.fig_to_html(fig)
 
-def plot_hospital_capacity(num_days = 30):
-    current_hospital_capacity = np.random.randint(50, 200, size=num_days)
-    fig = plt.figure()
-    obj = plt.plot(current_hospital_capacity, marker='o', color='b')
-
-    plt.title('Current Hospital Capacity')
-    plt.xlabel('Days')
-    plt.ylabel('Capacity')
-
-    return mpld3.fig_to_html(fig)
+def plot_hospital_capacity():
+    return np.random.randint(1,101)
 
 def plot_current_risk(num_days = 30):
 
-    current_risk = np.random.rand(num_days) * 0.5 + 0.3
-    fig = plt.figure()
-    obj = plt.plot(current_risk, marker='o', color='m')
-
-    plt.title('Current Risk')
-    plt.xlabel('Days')
-    plt.ylabel('Risk')
-
-    return mpld3.fig_to_html(fig)
+    return np.random.randint(1,4)
 
 def gen_table():
     d_table = {}
