@@ -13,5 +13,8 @@ flask --app server run
 From the frontend folder:
 ```
 npm install
+```
+
+```
 npm run dev
 ```
