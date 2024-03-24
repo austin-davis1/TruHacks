@@ -1,6 +1,7 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 import { LoadingIcon } from './LoadingIcon';
+import { getAllGraphs1, getAllGraphs2 } from './api';
 
 const countryCityData = {
   'India': ['Delhi', 'Mumbai', 'Bangalore', 'Kolkata', 'Chennai', 'Hyderabad', 'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow'],
@@ -21,6 +22,7 @@ function App() {
   const [selectionMode, setSelectionMode] = useState(true)
   const [loadingMode, setLoadingMode] = useState(false)
   const [graphMode, setGraphMode] = useState(false)
+  const [graphs, setGraphs] = useState({})
 
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);
@@ -31,32 +33,95 @@ function App() {
     setSelectedCity(event.target.value);
   };
 
-  const handleSelectionSubmit = () => {
+  const handleSelectionSubmit = async () => {
     if (!selectedCountry || !selectedCity) {
       alert("Must fill out all fields")
       return
     }
     setSelectionMode(false)
     setLoadingMode(true)
-    //some api call
+    let data = await getAllGraphs1()
+    console.log(data.case)
     setTimeout(() => {
       setLoadingMode(false)
       setGraphMode(true)
+      setGraphs(data)
+      console.log(data)
     }, 3000)
   };
 
-  const handleGraphSubmit = () => {
+  const handleGraphSubmit = async () => {
     if (!selectedCountry || !selectedCity) {
       alert("Must fill out all fields")
       return
     }
     setGraphMode(false)
     setLoadingMode(true)
+    let data = await getAllGraphs2()
+    console.log("CASE DATA" + data.case)
     setTimeout(() => {
       setLoadingMode(false)
       setGraphMode(true)
+      setGraphs(data)
     }, 3000)
     //some api call
+  }
+
+  const MatPlotLibFig = () => {
+    const fig_name = "fig_el427345810798888193429725"
+    return <div>
+      <script>
+        mpld3_load_lib("https://d3js.org/d3.v5.js", function () {
+          mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.8.js", function () {
+            mpld3.remove_figure(fig_name)
+            mpld3.draw_figure(fig_name, _json);
+          })
+        });
+      </script>
+      <div id={fig_name}></div>
+    </div>
+  }
+
+  const mpld3_load_lib = (url, callback) => {
+    var s = document.createElement('script');
+    s.src = url;
+    s.async = true;
+    s.onreadystatechange = s.onload = callback;
+    s.onerror = function () { console.warn("failed to load library " + url); };
+    document.getElementsByTagName("head")[0].appendChild(s);
+  }
+
+  function CaseGraph() {
+    /*let wrappedString = `<div id="scriptId">${graphs.case}</div>`
+    let doc = new DOMParser().parseFromString(wrappedString, "text/html")
+    console.log(doc)
+    let htmlContent = doc.documentElement.querySelector('body').innerHTML;
+    //let htmlContent = doc.documentElement.querySelector('body').innerHTML
+    //console.log(htmlContent)
+    //let htmlContent = doc.innerHTML;
+    return (
+      <div dangerouslySetInnerHTML={{ __html: htmlContent }}/>
+    )*/
+
+    return (
+      <img src={graphs.case}/>
+    )
+  }
+
+  function OutbreakGraph() {
+
+  }
+
+  function CapacityGraph() {
+
+  }
+
+  function RiskGraph() {
+
+  }
+
+  function TableGraph() {
+
   }
 
   return (
@@ -120,10 +185,7 @@ function App() {
       </div>
       <button className="submitButton" onClick={handleGraphSubmit}>Calculate</button>
         </div>
-        <div className="graphSection">
-
-        </div>
-        
+        <CaseGraph/>
         </>}
     </div>
     </>

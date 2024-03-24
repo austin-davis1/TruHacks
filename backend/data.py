@@ -28,7 +28,7 @@ def plot_cases(num_days = 30):
     plt.xlabel('Days')
     plt.ylabel('Number of Cases')
 
-    return mpld3.fig_to_html(fig)
+    return mpld3.fig_to_dict(fig)
 
 def plot_hospital_capacity(num_days = 30):
     current_hospital_capacity = np.random.randint(50, 200, size=num_days)
@@ -51,7 +51,7 @@ def plot_current_risk(num_days = 30):
     plt.xlabel('Days')
     plt.ylabel('Risk')
 
-    return mpld3.fig_to_html(fig)
+    return mpld3.fig_to_dict(fig)
 
 def gen_table():
     d_table = {}
