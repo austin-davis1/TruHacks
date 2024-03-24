@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt, mpld3
 import numpy as np
 import pandas as pd
+import json
 
 def plot_risk_of_outbreak(num_days = 30):
 
@@ -47,6 +48,14 @@ def plot_current_risk(num_days = 30):
     plt.grid(True)
     return mpld3.fig_to_html(fig)
 
+def gen_table():
+    d_table = {}
+    d_table['Disease'] = ['Malaria', 'Aids', 'Ebola', 'Covid', 'Tuberculosis']
+    d_table['Count'] = [np.random.randint(1,1000),np.random.randint(1,1000),np.random.randint(1,1000),np.random.randint(1,1000),np.random.randint(1,1000)]
+    d_table['Deaths'] = []
+    for x in d_table['Count']:
+        d_table['Deaths'].append(x-np.random.randint(1,900))
+    return json.dumps(d_table)
 
 
 def test():

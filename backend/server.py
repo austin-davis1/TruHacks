@@ -4,6 +4,7 @@ from data import plot_risk_of_outbreak
 from data import plot_cases
 from data import plot_hospital_capacity
 from data import plot_current_risk
+from data import gen_table
 app = Flask(__name__)
 
 @app.route("/")
@@ -27,6 +28,10 @@ def capacity_chart():
 @app.route("/risk")
 def risk_chart():
     return plot_current_risk()
+
+@app.route("/table")
+def table_table():
+    return gen_table()
 
 
 
