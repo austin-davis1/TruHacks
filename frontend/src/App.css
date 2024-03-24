@@ -50,3 +50,14 @@
   background-color: green;
   margin: 10px;
 }
+
+.graphMenu {
+  display: flex;
+  flex-direction: row;
+}
+
+.graphSection {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: auto;
+}
