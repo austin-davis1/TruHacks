@@ -5,24 +5,25 @@ import json
 
 def plot_risk_of_outbreak(num_days = 30):
 
-    num_days = 30
-    risk_of_outbreak = np.random.randint(0, 100, size=num_days)
+    risk_of_outbreak = np.random.randint(0, 100, size=30)
 
-    fig = plt.figure()
-    obj = plt.plot(risk_of_outbreak, marker='o', color='r')
-
-
+    months = pd.date_range('2022-01-01', periods=len(risk_of_outbreak), freq='M').strftime('%b %Y')
+    fig = plt.figure(figsize=(8, 6))
+    plt.bar(range(len(risk_of_outbreak)), risk_of_outbreak, color='r')  
     plt.title('Risk of Outbreak')
-    plt.xlabel('Days')
-    plt.ylabel('Risk')
+    plt.xlabel('Date')
+    plt.ylabel('Risk Level')
+    plt.xticks(range(len(months)), months, rotation=45, ha='right') 
+    plt.tight_layout()
 
     return mpld3.fig_to_html(fig)
 
 def plot_cases(num_days = 30):
     
-    cases = np.random.randint(0, 50, size=num_days)
+    cases = np.sort(np.random.randint(0, 50, size=num_days))
     fig = plt.figure(figsize=(8, 6))
     obj = plt.plot(cases, marker='o', color='g')
+
 
     plt.title('Cases')
     plt.xlabel('Days')
@@ -30,19 +31,12 @@ def plot_cases(num_days = 30):
 
     return mpld3.fig_to_dict(fig)
 
-def plot_hospital_capacity(num_days = 30):
-    current_hospital_capacity = np.random.randint(50, 200, size=num_days)
-    fig = plt.figure()
-    obj = plt.plot(current_hospital_capacity, marker='o', color='b')
-
-    plt.title('Current Hospital Capacity')
-    plt.xlabel('Days')
-    plt.ylabel('Capacity')
-
-    return mpld3.fig_to_html(fig)
+def plot_hospital_capacity():
+    return np.random.randint(1,101)
 
 def plot_current_risk(num_days = 30):
 
+<<<<<<< HEAD
     current_risk = np.random.rand(num_days) * 0.5 + 0.3
     fig = plt.figure()
     obj = plt.plot(current_risk, marker='o', color='m')
@@ -52,6 +46,9 @@ def plot_current_risk(num_days = 30):
     plt.ylabel('Risk')
 
     return mpld3.fig_to_dict(fig)
+=======
+    return np.random.randint(1,4)
+>>>>>>> 410d9fe188140dff0203d0e937a6520d02af600d
 
 def gen_table():
     d_table = {}
