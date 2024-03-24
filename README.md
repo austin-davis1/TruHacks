@@ -10,7 +10,7 @@ flask --app server run
 ```
 
 # Frontend Setup
-From the frontend folder:
+From the frontend folder run the following:
 ```
 npm install
 ```
